@@ -60,7 +60,7 @@ def extract_articles(url, port):
         logger.info(f"WebDriver 已关闭 (端口: {port})")
 
 # 要处理的 URL
-url = "https://program-think.blogspot.com/"
+url = "https://program-think.blogspot.com/search?updated-max=2019-09-06T15:22:00%2B08:00&max-results=50"
 
 # 使用端口 9050
 port = 9050

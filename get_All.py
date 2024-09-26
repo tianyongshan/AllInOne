@@ -1,6 +1,7 @@
 import os
 import json
 import logging
+import re
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
@@ -20,12 +21,20 @@ output_dir = "编程随想"
 os.makedirs(output_dir, exist_ok=True)
 logger.info(f"创建输出目录: {output_dir}")
 
+def clean_filename(filename):
+    # 移除或替换不允许的字符
+    filename = re.sub(r'[\\/*?:"<>|]', "", filename)
+    # 将文件名截断到合适的长度（例如255个字符）
+    return filename[:255]
+
 def process_url(title, url, port):
-    print('title',title)
-    print('url',url)
-    print('port',port)
+    print('title', title)
+    print('url', url)
+    print('port', port)
     
-    output_file = os.path.join(output_dir, f"{title}.html")
+    # 清理文件名
+    clean_title = clean_filename(title)
+    output_file = os.path.join(output_dir, f"{clean_title}.html")
     if os.path.exists(output_file):
         logger.info(f"文件 {output_file} 已存在，跳过处理")
         return
